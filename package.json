@@ -1,0 +1,21 @@
+{
+  "name": "golddigger",
+  "version": "1.0.0",
+  "description": "gold buying app, allows you to purchase gold in any amount instantly",
+  "homepage": "https://github.com/renegadec/golddigger#readme",
+  "bugs": {
+    "url": "https://github.com/renegadec/golddigger/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renegadec/golddigger.git"
+  },
+  "license": "ISC",
+  "author": "renegadec",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  }
+}
