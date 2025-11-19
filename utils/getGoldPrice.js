@@ -2,7 +2,7 @@ let goldPrice = 4041
 
 export function getGoldPrice() {
         
-        const change = Math.random() < 0.5 ? -0.5 : 0.8
+        const change = Math.random() < 0.5 ? -0.5 : 0.2
 
         goldPrice += change
 
