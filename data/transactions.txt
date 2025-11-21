@@ -1,0 +1,2 @@
+2025-11-21T08:49:21.148Z, amount paid: 1000, price per Oz: $4040.80, gold sold: 0.2475 Oz
+2025-11-21T08:49:48.722Z, amount paid: 2000, price per Oz: $4041.00, gold sold: 0.4949 Oz
