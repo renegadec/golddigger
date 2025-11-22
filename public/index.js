@@ -38,7 +38,7 @@ investBtn.addEventListener('click', async (e) => {
         console.log(resultText)
     } catch (err) {
         console.log('Failed to send data', err)
-    }
+    } 
 })
 
 closeBtn.addEventListener('click', () => {

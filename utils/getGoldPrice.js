@@ -1,3 +1,5 @@
+//can be replaced with a real gold api. Used this for the sake of testing
+
 let goldPrice = 4041
 
 export function getGoldPrice() {

@@ -2,6 +2,7 @@ import http from 'node:http'
 import path from 'node:path'
 import { serveStatic } from './utils/serveStatic.js'
 import { getGoldPrice } from './utils/getGoldPrice.js'
+import { createPdf } from "./utils/createPdf.js"
 import fs from 'node:fs/promises'
 
 
@@ -29,16 +30,18 @@ const server = http.createServer( async (req, res) => {
                 const timestamp = new Date().toISOString()
                 const textData = `${timestamp}, amount paid: ${amount}, price per Oz: $${goldPrice}, gold sold: ${goldOunces} Oz\n`
 
-                fs.appendFile(pathTxt, textData, err => {
-                    if (err) {
-                        console.error('Error writing to file', err)
-                        res.statusCode = 500
-                        res.end('Failed to save data')
-                        return
-                    }
-                    res.statusCode = 200
-                    res.end('Data saved successfully')
-                })
+               await fs.appendFile(pathTxt, textData)
+                    // if (err) {
+                    //     console.error('Error writing to file', err)
+                    //     res.statusCode = 500
+                    //     res.end('Failed to save data')
+                    //     return
+                    // 
+                await createPdf(amount, goldPrice, goldOunces);
+                console.log('Pdf created successfully')
+               
+                res.statusCode = 200
+                res.end('Data saved successfully and pdf generated')
             } catch (err) {
                 console.error('Invalid JSON', err)
                 res.statusCode = 400
