@@ -2,7 +2,7 @@ import http from 'node:http'
 import path from 'node:path'
 import { serveStatic } from './utils/serveStatic.js'
 import { getGoldPrice } from './utils/getGoldPrice.js'
-import { createPdf } from "./utils/createPdf.js"
+import { createPdf } from './utils/createPdf.js'
 import fs from 'node:fs/promises'
 
 
@@ -37,11 +37,13 @@ const server = http.createServer( async (req, res) => {
                     //     res.end('Failed to save data')
                     //     return
                     // 
-                await createPdf(amount, goldPrice, goldOunces);
+                const { pdfBytes, fileName } = await createPdf(amount, goldPrice, goldOunces)
                 console.log('Pdf created successfully')
                
                 res.statusCode = 200
-                res.end('Data saved successfully and pdf generated')
+                res.setHeader('Content-Type', 'application/pdf')
+                res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`)
+                res.end(Buffer.from(pdfBytes))
             } catch (err) {
                 console.error('Invalid JSON', err)
                 res.statusCode = 400

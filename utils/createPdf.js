@@ -1,9 +1,4 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
-import path from 'node:path'
-import fs from 'node:fs/promises'
-
-const __dirname = import.meta.dirname
-
 
 export async function createPdf(investmentAmount, goldPrice, goldAmountOunces) {
     // Create a new PDFDocument
@@ -64,9 +59,8 @@ export async function createPdf(investmentAmount, goldPrice, goldAmountOunces) {
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await pdfDoc.save()
 
-    const pdfPath = path.join(__dirname, '..', 'pdfs', `receipt_${Date.now()}.pdf`)
-
-    await fs.mkdir(path.dirname(pdfPath), {recursive: true})
-
-    return pdfPath
+    return {
+        pdfBytes,
+        fileName: `receipt_${Date.now()}.pdf`,
+    }
 }

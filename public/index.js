@@ -25,17 +25,22 @@ investBtn.addEventListener('click', async (e) => {
     successModal.showModal()
 
     try {
-        const res = await fetch('/gold', {
-            method: 'POST',
-            headers: {  'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                amount: investmentAmount,
-                goldPrice: goldPrice,
-                goldOunces: goldAmountOunces.toFixed(4)
-            })
+        // const res = await fetch('/gold', {
+        //     method: 'POST',
+        //     headers: {  'Content-Type': 'application/json'},
+        //     body: JSON.stringify({
+        //         amount: investmentAmount,
+        //         goldPrice: goldPrice,
+        //         goldOunces: goldAmountOunces.toFixed(4)
+        //     })
+        // })
+        // const resultText = await res.text()
+        // console.log(resultText)
+        await downloadReceipt({
+            amount: investmentAmount,
+            goldPrice,
+            goldOunces: goldAmountOunces.toFixed(4),
         })
-        const resultText = await res.text()
-        console.log(resultText)
     } catch (err) {
         console.log('Failed to send data', err)
     } 
@@ -60,4 +65,30 @@ eventSource.onerror = () => {
 function calcPurchasedGold(){
     goldAmountOunces = investmentAmount / goldPrice
     purchasedGold.textContent = goldAmountOunces.toFixed(4)
+}
+
+async function downloadReceipt(payload) {
+    const response = await fetch('/gold', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+    })
+
+    if (!response.ok) {
+        const message = await response.text()
+        throw new Error(message || 'Failed to generate receipt')
+    }
+
+    const blob = await response.blob()
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    const disposition = response.headers.get('Content-Disposition') || ''
+    const fileMatch = disposition.match(/filename="?([^"]+)"?/)
+
+    link.href = url
+    link.download = fileMatch ? fileMatch[1] : 'receipt.pdf'
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    URL.revokeObjectURL(url)
 }

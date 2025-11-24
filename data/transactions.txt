@@ -8,3 +8,4 @@
 2025-11-22T19:12:43.533Z, amount paid: 1200, price per Oz: $4041.00, gold sold: 0.2970 Oz
 2025-11-22T19:14:55.946Z, amount paid: 1000, price per Oz: $0, gold sold: Infinity Oz
 2025-11-22T19:40:46.022Z, amount paid: 1000, price per Oz: $4040.90, gold sold: 0.2475 Oz
+2025-11-24T12:55:52.759Z, amount paid: 1000, price per Oz: $4041.00, gold sold: 0.2475 Oz
